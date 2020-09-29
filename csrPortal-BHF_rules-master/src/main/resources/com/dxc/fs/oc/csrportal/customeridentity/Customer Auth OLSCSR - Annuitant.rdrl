@@ -1,0 +1,43 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.AuthField;
+import com.dxc.fs.oc.drools.model.CSRData;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Customer Auth OLSCSR - Annuitant"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		ruleResponse : PortalRuleResponse( responseObjects : responseObjects)
+		customerAuth : CustomerAuth( authFields : authFields)
+		csrData : CSRData( callerRole == "Annuitant" , csrRole == "OLSCSR" , partyType == "Person" , policyType in ( "1", "2" ) )
+	then
+		AuthField role = new AuthField();
+		role.setName( "Role" );
+		insert( role );
+		AuthField polNum = new AuthField();
+		polNum.setName( "PolicyNumber" );
+		insert( polNum );
+		AuthField name = new AuthField();
+		name.setName( "FullName" );
+		insert( name );
+		AuthField SSN = new AuthField();
+		SSN.setName( "AnnuitantSsn" );
+		insert( SSN );
+		AuthField DOB = new AuthField();
+		DOB.setName( "AnnuitantDob" );
+		DOB.setAlternate( true );
+		insert( DOB );
+		AuthField address = new AuthField();
+		address.setName( "AnnuitantAddress" );
+		address.setAlternate( true );
+		insert( address );
+		AuthField annuitantFirstName = new AuthField();
+		annuitantFirstName.setName( "annuitantFirstName" );
+		insert( annuitantFirstName );
+		AuthField annuitantLastName = new AuthField();
+		annuitantLastName.setName( "annuitantLastName" );
+		insert( annuitantLastName );
+end

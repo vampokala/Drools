@@ -1,0 +1,17 @@
+package com.dxc.fs.oc.csrportal.withdrawals;
+
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.Surrender;
+import com.dxc.fs.oc.drools.model.SurrenderInputData;
+
+rule "Surrender Rule-2B"
+	dialect "mvel"
+	ruleflow-group "Surrender"
+	when
+		surrenderResp : Surrender( )
+		response : PortalRuleResponse( message : message, responseObjects : responseObjects)
+		surrenderInputData : SurrenderInputData( custodialOwned == "N" , ageUnderFiftyNine == "Y" , csrRole == "CSR" , transactionType in ( "F", "P", "S" ) )
+	then
+		surrenderResp.setParagraph( "Taxable withdrawals made before age 59½ may be subject to a 10 percent penalty tax (in addition to the ordinary income tax) unless the distribution meets a specific exception." );
+		responseObjects.put( "paragraph", surrenderResp );
+end

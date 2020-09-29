@@ -1,0 +1,11 @@
+package com.dxc.fs.oc.csrportal.workoptions;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkItemData;
+
+rule "Transaction Type is BILLCHG"
+	dialect "mvel"
+	when
+		WorkItemData( transactionType == "BILLCHG" )
+	then
+end

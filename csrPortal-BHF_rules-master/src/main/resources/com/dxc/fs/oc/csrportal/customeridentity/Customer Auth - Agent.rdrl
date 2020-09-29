@@ -1,0 +1,52 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.AuthField;
+import com.dxc.fs.oc.drools.model.CSRData;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Customer Auth - Agent"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		ruleResponse : PortalRuleResponse( responseObjects : responseObjects)
+		customerAuth : CustomerAuth( authFields : authFields)
+		csrData : CSRData( callerRole == "Agent" , csrRole in ( "CSR" ) , policyType == "1" )
+	then
+		AuthField role = new AuthField();
+		role.setName( "Role" );
+		insert( role );
+		AuthField agentName = new AuthField();
+		agentName.setName( "FullName" );
+		insert( agentName );
+		AuthField agentId = new AuthField();
+		agentId.setName( "AgentId" );
+		insert( agentId );
+		AuthField agentSSN = new AuthField();
+		agentSSN.setName( "AgentSsn" );
+		insert( agentSSN );
+		AuthField agentStatus = new AuthField();
+		agentStatus.setName( "AgentStatus" );
+		insert( agentStatus );
+		AuthField polNum = new AuthField();
+		polNum.setName( "PolicyNumber" );
+		insert( polNum );
+		AuthField ownerName = new AuthField();
+		ownerName.setName( "OwnerName" );
+		insert( ownerName );
+		AuthField ownerSSN = new AuthField();
+		ownerSSN.setName( "OwnerSsn" );
+		insert( ownerSSN );
+		AuthField ownerAddress = new AuthField();
+		ownerAddress.setName( "OwnerAddress" );
+		ownerAddress.setAlternate( true );
+		insert( ownerAddress );
+		AuthField insuredName = new AuthField();
+		insuredName.setName( "InsuredName" );
+		insert( insuredName );
+		AuthField insuredDOB = new AuthField();
+		insuredDOB.setName( "InsuredDob" );
+		insuredDOB.setAlternate( true );
+		insert( insuredDOB );
+end

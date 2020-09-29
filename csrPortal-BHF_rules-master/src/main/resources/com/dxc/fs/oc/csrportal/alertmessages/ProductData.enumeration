@@ -1,0 +1,4 @@
+'ProductData.planCode' : ["FIA001=FIA"]
+'ProductData.productCode' : ["T1=TERM"]
+'ProductData.callerRole' : ["agent","customer","owner","payor","insured","active agent","term. agent","agent assistant","poa"]
+'ProductData.userRole' : ["CSR","OLSCSR"]

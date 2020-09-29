@@ -1,0 +1,7 @@
+'WorkflowInputData.method' : ["GET","PUT","POST","DELETE","PATCH","OPTIONS"]
+'WorkflowInputData.csrRole' : ["CSR","OLSCSR"]
+'WorkflowInputData.tenantName' : ["BHF","BHF-IUL-DEV","BHF-CONV-DEV","BHF-NB-DEV","BHF-IUL-SIT","BHF-CONV-SIT","BHF-NB-SIT","BHF-CONV-PIT","BHF-IUL-PIT","GAFG-LT-POC","BHF-DAY2-DEV"]
+'WorkflowInputData.transactionName' : ["Addresses","Contracts","Contract","Billing","PartyRoles","Default","Email","Tier1","Tier2","Surrender","SurrenderPartial"]
+'WorkflowInputData.callerRole' : ["owner","payor","insured","active agent","term. agent","agent","poa"]
+'WorkflowInputData.overnight' : ["YES","NO"]
+'WorkflowInputData.agentRecommendOrAuthorized' : ["YES","NO"]

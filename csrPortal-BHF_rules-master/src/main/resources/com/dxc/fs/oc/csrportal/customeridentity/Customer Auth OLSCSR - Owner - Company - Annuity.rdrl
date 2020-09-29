@@ -1,0 +1,43 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.AuthField;
+import com.dxc.fs.oc.drools.model.CSRData;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Customer Auth OLSCSR - Owner - Company - Annuity"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		ruleResponse : PortalRuleResponse( responseObjects : responseObjects)
+		customerAuth : CustomerAuth( authFields : authFields)
+		csrData : CSRData( callerRole == "Owner" , csrRole == "OLSCSR" , partyType in ( "Company/Trustee", "Organization" ) , policyType in ( "1", "2" ) )
+	then
+		AuthField role = new AuthField();
+		role.setName( "Role" );
+		insert( role );
+		AuthField polNum = new AuthField();
+		polNum.setName( "PolicyNumber" );
+		insert( polNum );
+		AuthField ownerName = new AuthField();
+		ownerName.setName( "FullName" );
+		insert( ownerName );
+		AuthField ownerSSN = new AuthField();
+		ownerSSN.setName( "OwnerSsn" );
+		insert( ownerSSN );
+		AuthField ownerDOB = new AuthField();
+		ownerDOB.setName( "OwnerDob" );
+		ownerDOB.setAlternate( true );
+		insert( ownerDOB );
+		AuthField ownerAddress = new AuthField();
+		ownerAddress.setName( "OwnerAddress" );
+		ownerAddress.setAlternate( true );
+		insert( ownerAddress );
+		AuthField ownerFirstName = new AuthField();
+		ownerFirstName.setName( "ownerFirstName" );
+		insert( ownerFirstName );
+		AuthField ownerLastName = new AuthField();
+		ownerLastName.setName( "ownerLastName" );
+		insert( ownerLastName );
+end

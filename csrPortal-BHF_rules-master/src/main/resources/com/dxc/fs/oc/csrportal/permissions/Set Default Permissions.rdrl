@@ -1,0 +1,50 @@
+package com.dxc.fs.oc.csrportal.permissions;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.PermissionsResponse;
+import com.dxc.fs.oc.drools.model.PermissionsData;
+
+rule "Set Default Permissions"
+	dialect "mvel"
+	ruleflow-group "permissions"
+	when
+		PermissionsResponse( permissions : permissions)
+		PermissionsData( tenantName == "BHF" , csrRole in ( "CSR", "OLSCSR" ) )
+	then
+		permissions.add( "POLICY:GET" );
+		permissions.add( "POLICY:OPTIONS" );
+		permissions.add( "BILLING:GET" );
+		permissions.add( "BILLING:OPTIONS" );
+		permissions.add( "POLICYVALUES:GET" );
+		permissions.add( "POLICYVALUES:OPTIONS" );
+		permissions.add( "ADDRESS:GET" );
+		permissions.add( "ADDRESS:OPTIONS" );
+		permissions.add( "PERSON:GET" );
+		permissions.add( "PERSON:OPTIONS" );
+		permissions.add( "ORGANISATION:GET" );
+		permissions.add( "ORGANISATION:OPTIONS" );
+		permissions.add( "FUND:GET" );
+		permissions.add( "FUND:OPTIONS" );
+		permissions.add( "COVERAGE:GET" );
+		permissions.add( "COVERAGE:OPTIONS" );
+		permissions.add( "PARTYROLE:GET" );
+		permissions.add( "PARTYROLE:OPTIONS" );
+		permissions.add( "ARRANGEMENT:GET" );
+		permissions.add( "ARRANGEMENT:OPTIONS" );
+		permissions.add( "BANKACCOUNT:GET" );
+		permissions.add( "BANKACCOUNT:OPTIONS" );
+		permissions.add( "COMMUNICATIONNUMBER:GET" );
+		permissions.add( "COMMUNICATIONNUMBER:OPTIONS" );
+		permissions.add( "PAYOUT:GET" );
+		permissions.add( "PAYOUT:OPTIONS" );
+		permissions.add( "NOTES:GET" );
+		permissions.add( "NOTES:OPTIONS" );
+		permissions.add( "SUSPENSE:GET" );
+		permissions.add( "SUSPENSE:OPTIONS" );
+		permissions.add( "POLICYHISTORY:GET" );
+		permissions.add( "POLICYHISTORY:OPTIONS" );
+		permissions.add( "DataCollect:GET" );
+		permissions.add( "DataCollect:OPTIONS" );
+		permissions.add( "surrender:GET" );
+		permissions.add( "surrender:OPTIONS" );
+end

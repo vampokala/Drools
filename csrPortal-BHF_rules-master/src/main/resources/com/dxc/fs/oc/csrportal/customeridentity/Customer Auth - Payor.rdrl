@@ -1,0 +1,35 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.AuthField;
+import com.dxc.fs.oc.drools.model.CSRData;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Customer Auth - Payor"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		ruleResponse : PortalRuleResponse( responseObjects : responseObjects)
+		customerAuth : CustomerAuth( authFields : authFields)
+		csrData : CSRData( callerRole == "Payor" , csrRole == "CSR" , policyType == "1" )
+	then
+		AuthField role = new AuthField();
+		role.setName( "Role" );
+		insert( role );
+		AuthField polNum = new AuthField();
+		polNum.setName( "PolicyNumber" );
+		insert( polNum );
+		AuthField ownerSSN = new AuthField();
+		ownerSSN.setName( "OwnerSsn" );
+		insert( ownerSSN );
+		AuthField insuredName = new AuthField();
+		insuredName.setName( "InsuredName" );
+		insert( insuredName );
+		AuthField payorName = new AuthField();
+		payorName.setName( "PayorFullName" );
+		insert( payorName );
+		AuthField payorAddress = new AuthField();
+		payorAddress.setName( "PayorAddress" );
+		insert( payorAddress );
+end

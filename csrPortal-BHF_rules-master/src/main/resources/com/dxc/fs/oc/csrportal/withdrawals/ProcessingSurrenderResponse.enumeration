@@ -1,0 +1,7 @@
+'ProcessingSurrenderResponse.alertMessage' : ["Role does not support telephone request Form Required=1","Irrevocable Beneficiary Form Required=2","Trust Owned Account Confirm Transaction Allowed by Phone=3","Contract TSA Tax Market Transaction Not Allowed by Phone=4","Telephone Withdrawal Not Allowed Due to Age=5","Telephone Withdrawal Not Allowed Due to Product Rules=6","Contract has Suspense Code Confirm Reason in Notes and Submit Required Work Requests=7","Invalid Transaction with Contract Status=8","Contract has Restrict Code Confirm Reason in Notes and Submit Required Work Requests=9","Did Agent recommend you surrender this contract or is the Agent the authorized caller?=10","Surrender Request must be submitted as work request item=11","Contract 401k Transaction Not Allowed by Phone.=12","No rule matched.=13","Invalid Transaction with Contract Status=14","Contract has Restrict Code Confirm Reason in Notes and Submit Required Work Requests=15","Did Agent recommend you surrender this contract or is the Agent the authorized caller=16","N/A=17","Agent telephone withdrawals are not allowed by firm. Written withdrawal request required=18"]
+'ProcessingSurrenderResponse.updateAllowed' : ["allowed=Y","not allowed=N","automatic=A"]
+'ProcessingSurrenderResponse.alertType' : ["1","2"]
+'ProcessingSurrenderResponse.isDisableTab' : ["Y","N"]
+'ProcessingSurrenderResponse.swpAdd' : ["Y","N"]
+'ProcessingSurrenderResponse.swpModify' : ["Y","N"]
+'ProcessingSurrenderResponse.extraConfirm' : ["Y","N"]

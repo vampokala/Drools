@@ -1,0 +1,5 @@
+'SurrenderOverrideResponse.alertMessage' : ["The stock market is closed and the transaction will be completed on next business day=1"]
+'SurrenderOverrideResponse.updateAllowed' : ["allowed=Y","not allowed=N","automatic=A","No mapping rule matched"]
+'SurrenderOverrideResponse.isDisableTab' : ["Y","N"]
+'SurrenderOverrideResponse.swpAdd' : ["Y","N"]
+'SurrenderOverrideResponse.swpModify' : ["Y","N"]

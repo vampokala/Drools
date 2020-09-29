@@ -1,0 +1,67 @@
+package com.dxc.fs.oc.csrportal.workitems;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkItemResponse;
+import com.dxc.fs.oc.drools.model.WorkItemList;
+import com.dxc.fs.oc.drools.model.WorkItemField;
+import com.dxc.fs.oc.drools.model.WorkItemData;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Work Item - CORRESP"
+	dialect "mvel"
+	ruleflow-group "workItemsInit"
+	no-loop false
+	when
+		PortalRuleResponse( responseObjects : responseObjects)
+		WorkItemData( businessArea == "BHF1" )
+		request : WorkItemResponse( workType == "CORRESP" )
+		WorkItemList( requestList : workItemList)
+		response : WorkItemResponse( fields : fields, workType == "CORRESP" ) from requestList
+	then
+		WorkItemField phoneNumber = new WorkItemField();
+		phoneNumber.setName( "phone" );
+		phoneNumber.setType( "number" );
+		insert( phoneNumber );
+		WorkItemField fax = new WorkItemField();
+		fax.setName( "fax" );
+		fax.setType( "number" );
+		insert( fax );
+		WorkItemField address1 = new WorkItemField();
+		address1.setName( "address1" );
+		address1.setType( "string" );
+		insert( address1 );
+		WorkItemField address2 = new WorkItemField();
+		address2.setName( "address2" );
+		address2.setType( "string" );
+		insert( address2 );
+		WorkItemField city = new WorkItemField();
+		city.setName( "city" );
+		city.setType( "string" );
+		insert( city );
+		WorkItemField state = new WorkItemField();
+		state.setName( "state" );
+		state.setType( "string" );
+		insert( state );
+		WorkItemField zip = new WorkItemField();
+		zip.setName( "zip" );
+		zip.setType( "number" );
+		insert( zip );
+		WorkItemField comments = new WorkItemField();
+		comments.setName( "comments" );
+		comments.setType( "string" );
+		insert( comments );
+		WorkItemField telephoneCall = new WorkItemField();
+		telephoneCall.setName( "telephone" );
+		telephoneCall.setType( "string" );
+		insert( telephoneCall );
+		fields.add( phoneNumber );
+		fields.add( fax );
+		fields.add( address1 );
+		fields.add( address2 );
+		fields.add( city );
+		fields.add( state );
+		fields.add( zip );
+		fields.add( comments );
+		fields.add( telephoneCall );
+		responseObjects.put( "workItemResponse", response );
+end

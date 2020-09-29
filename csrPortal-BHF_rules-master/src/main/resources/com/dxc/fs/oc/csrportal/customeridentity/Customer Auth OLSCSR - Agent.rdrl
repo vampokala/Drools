@@ -1,0 +1,38 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.AuthField;
+import com.dxc.fs.oc.drools.model.CSRData;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Customer Auth OLSCSR - Agent"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		ruleResponse : PortalRuleResponse( responseObjects : responseObjects)
+		customerAuth : CustomerAuth( authFields : authFields)
+		csrData : CSRData( callerRole in ( "Agent", "Agent Assistant" ) , csrRole == "OLSCSR" , policyType in ( "1", "2" ) )
+	then
+		AuthField role = new AuthField();
+		role.setName( "Role" );
+		insert( role );
+		AuthField agentName = new AuthField();
+		agentName.setName( "FullName" );
+		insert( agentName );
+		AuthField agentNIPR = new AuthField();
+		agentNIPR.setName( "AgentNIPR" );
+		insert( agentNIPR );
+		AuthField firmName = new AuthField();
+		firmName.setName( "FirmName" );
+		insert( firmName );
+		AuthField agentSSN = new AuthField();
+		agentSSN.setName( "AgentSsn" );
+		insert( agentSSN );
+		AuthField agentFirstName = new AuthField();
+		agentFirstName.setName( "agentFirstName" );
+		insert( agentFirstName );
+		AuthField agentLastName = new AuthField();
+		agentLastName.setName( "agentLastName" );
+		insert( agentLastName );
+end

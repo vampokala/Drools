@@ -1,0 +1,85 @@
+package com.dxc.fs.oc.csrportal.workitems;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkItemResponse;
+import com.dxc.fs.oc.drools.model.WorkItemList;
+import com.dxc.fs.oc.drools.model.WorkItemField;
+import com.dxc.fs.oc.drools.model.WorkItemData;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Work Item - BILCHG - Bill Method Change Request to change date or PAC-EFT amount"
+	dialect "mvel"
+	ruleflow-group ""
+	no-loop false
+	when
+		PortalRuleResponse( responseObjects : responseObjects)
+		WorkItemData( businessArea == "BHF1" )
+		request : WorkItemResponse( workType == "BILCHG" )
+		WorkItemList( requestList : workItemList)
+		response : WorkItemResponse( fields : fields, workType == "BILCHG" ) from requestList
+	then
+		WorkItemField phoneNumber = new WorkItemField();
+		phoneNumber.setName( "phone" );
+		phoneNumber.setType( "number" );
+		insert( phoneNumber );
+		WorkItemField fax = new WorkItemField();
+		fax.setName( "fax" );
+		fax.setType( "number" );
+		insert( fax );
+		WorkItemField address1 = new WorkItemField();
+		address1.setName( "address1" );
+		address1.setType( "string" );
+		insert( address1 );
+		WorkItemField address2 = new WorkItemField();
+		address2.setName( "address2" );
+		address2.setType( "string" );
+		insert( address2 );
+		WorkItemField city = new WorkItemField();
+		city.setName( "city" );
+		city.setType( "string" );
+		insert( city );
+		WorkItemField state = new WorkItemField();
+		state.setName( "state" );
+		state.setType( "string" );
+		insert( state );
+		WorkItemField zip = new WorkItemField();
+		zip.setName( "zip" );
+		zip.setType( "number" );
+		insert( zip );
+		WorkItemField draftDay = new WorkItemField();
+		draftDay.setName( "draftDay" );
+		draftDay.setType( "number" );
+		draftDay.setRequired( false );
+		insert( draftDay );
+		WorkItemField billingAmt = new WorkItemField();
+		billingAmt.setName( "billingAmt" );
+		billingAmt.setType( "number" );
+		billingAmt.setRequired( false );
+		insert( billingAmt );
+		WorkItemField billingFreq = new WorkItemField();
+		billingFreq.setName( "billingFreq" );
+		billingFreq.setType( "string" );
+		billingFreq.setRequired( false );
+		insert( billingFreq );
+		WorkItemField comments = new WorkItemField();
+		comments.setName( "comments" );
+		comments.setType( "string" );
+		insert( comments );
+		WorkItemField telephoneCall = new WorkItemField();
+		telephoneCall.setName( "telephone" );
+		telephoneCall.setType( "string" );
+		insert( telephoneCall );
+		fields.add( phoneNumber );
+		fields.add( fax );
+		fields.add( address1 );
+		fields.add( address2 );
+		fields.add( city );
+		fields.add( state );
+		fields.add( zip );
+		fields.add( draftDay );
+		fields.add( billingAmt );
+		fields.add( billingFreq );
+		fields.add( comments );
+		fields.add( telephoneCall );
+		responseObjects.put( "workItemResponse", response );
+end

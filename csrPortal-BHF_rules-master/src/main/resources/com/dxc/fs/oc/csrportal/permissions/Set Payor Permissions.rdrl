@@ -1,0 +1,15 @@
+package com.dxc.fs.oc.csrportal.permissions;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.PermissionsResponse;
+import com.dxc.fs.oc.drools.model.PermissionsData;
+
+rule "Set Payor Permissions" extends "Set Default Permissions"
+	dialect "mvel"
+	ruleflow-group "permissions"
+	when
+		PermissionsResponse( perms : permissions)
+		PermissionsData( callerRole == "payor" )
+	then
+		perms.add( "BILLING:PATCH" );
+end

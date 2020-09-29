@@ -1,0 +1,26 @@
+package com.dxc.fs.oc.csrportal.workflow;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkflowInputData;
+import com.dxc.fs.oc.drools.model.Step;
+import com.dxc.fs.oc.drools.model.Workflow;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import java.lang.Integer;
+
+rule "Add Steps For Owner Policy"
+	dialect "mvel"
+	ruleflow-group "workflow"
+	when
+		workflow : Workflow( steps : steps)
+		input : WorkflowInputData( tenantName in ( "BHF", "BHF-IUL-DEV", "BHF-CONV-DEV", "BHF-NB-DEV", "BHF-IUL-SIT", "BHF-CONV-SIT", "BHF-NB-SIT", "BHF-CONV-PIT", "BHF-IUL-PIT", "BHF-DAY2-DEV" ) , transactionName == "Addresses" , method in ( "POST", "PATCH" ) , numberOfOwnerPolicies : numberOfOwnerPolicies > 0 )
+	then
+		Step newStep = new Step();
+		newStep.setName( "wma" );
+		newStep.setExecution( "async" );
+		newStep.setPreExecution( "residentChangePreProcessor" );
+		newStep.setPostExecution( "residentChangePostProcessor" );
+		insert( newStep );
+		modify( input ) {
+				setNumberOfOwnerPolicies( numberOfOwnerPolicies- 1 )
+		}
+end

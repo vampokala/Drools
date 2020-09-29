@@ -1,0 +1,100 @@
+package com.dxc.fs.oc.csrportal.workitems;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkItemResponse;
+import com.dxc.fs.oc.drools.model.WorkItemList;
+import com.dxc.fs.oc.drools.model.WorkItemField;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.WorkItemData;
+
+rule "Work Item - LTCNOTICE"
+	dialect "mvel"
+	ruleflow-group "workItemsInit"
+	no-loop false
+	when
+		PortalRuleResponse( responseObjects : responseObjects)
+		WorkItemData( businessArea == "BHF1" )
+		request : WorkItemResponse( workType == "LTCNOTICE" )
+		WorkItemList( requestList : workItemList)
+		response : WorkItemResponse( fields : fields, workType == "LTCNOTICE" ) from requestList
+	then
+		WorkItemField notifierFirstName = new WorkItemField();
+		notifierFirstName.setName( "notifierFirstName" );
+		notifierFirstName.setType( "string" );
+		notifierFirstName.setRequired( true );
+		insert( notifierFirstName );
+		WorkItemField notifierLastName = new WorkItemField();
+		notifierLastName.setName( "notifierLastName" );
+		notifierLastName.setType( "string" );
+		notifierLastName.setRequired( true );
+		insert( notifierLastName );
+		WorkItemField notifierPhone = new WorkItemField();
+		notifierPhone.setName( "notifierPhone" );
+		notifierPhone.setType( "string" );
+		notifierPhone.setRequired( true );
+		insert( notifierPhone );
+		WorkItemField notifierCompany = new WorkItemField();
+		notifierCompany.setName( "notifierCompany" );
+		notifierCompany.setType( "string" );
+		notifierCompany.setRequired( false );
+		insert( notifierCompany );
+		WorkItemField notifierAddress = new WorkItemField();
+		notifierAddress.setName( "notifierAddress" );
+		notifierAddress.setType( "string" );
+		notifierAddress.setRequired( false );
+		insert( notifierAddress );
+		WorkItemField notifierAddress2 = new WorkItemField();
+		notifierAddress2.setName( "notifierAddress2" );
+		notifierAddress2.setType( "string" );
+		notifierAddress2.setRequired( false );
+		insert( notifierAddress2 );
+		WorkItemField notifierCity = new WorkItemField();
+		notifierCity.setName( "notifierCity" );
+		notifierCity.setType( "string" );
+		notifierCity.setRequired( false );
+		insert( notifierCity );
+		WorkItemField notifierState = new WorkItemField();
+		notifierState.setName( "state" );
+		notifierState.setType( "string" );
+		notifierState.setRequired( false );
+		insert( notifierState );
+		WorkItemField notifierPostalCode = new WorkItemField();
+		notifierPostalCode.setName( "notifierPostalCode" );
+		notifierPostalCode.setType( "string" );
+		notifierPostalCode.setRequired( false );
+		insert( notifierPostalCode );
+		WorkItemField notifierFax = new WorkItemField();
+		notifierFax.setName( "notifierFax" );
+		notifierFax.setType( "string" );
+		notifierFax.setRequired( false );
+		insert( notifierFax );
+		WorkItemField Comments = new WorkItemField();
+		Comments.setName( "comments" );
+		Comments.setType( "string" );
+		Comments.setRequired( false );
+		insert( Comments );
+		WorkItemField dateofInjury = new WorkItemField();
+		dateofInjury.setName( "dateofInjury" );
+		dateofInjury.setType( "string" );
+		dateofInjury.setRequired( true );
+		insert( dateofInjury );
+		WorkItemField dateReported = new WorkItemField();
+		dateReported.setName( "dateReported" );
+		dateReported.setType( "boolean" );
+		dateReported.setRequired( true );
+		insert( dateReported );
+		fields.add( notifierFirstName );
+		fields.add( notifierLastName );
+		fields.add( notifierPhone );
+		fields.add( notifierCompany );
+		fields.add( notifierAddress );
+		fields.add( notifierAddress2 );
+		fields.add( notifierCity );
+		fields.add( notifierState );
+		fields.add( notifierPostalCode );
+		fields.add( notifierFax );
+		fields.add( dateofInjury );
+		fields.add( dateReported );
+		fields.add( Comments );
+		responseObjects.put( "workItemResponse", response );
+end

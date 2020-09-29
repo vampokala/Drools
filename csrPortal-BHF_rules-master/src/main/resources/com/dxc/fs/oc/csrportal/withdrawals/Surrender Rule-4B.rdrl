@@ -1,0 +1,17 @@
+package com.dxc.fs.oc.csrportal.withdrawals;
+
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.Surrender;
+import com.dxc.fs.oc.drools.model.SurrenderInputData;
+
+rule "Surrender Rule-4B"
+	dialect "mvel"
+	ruleflow-group "Surrender"
+	when
+		surrenderResp : Surrender( )
+		response : PortalRuleResponse( message : message, responseObjects : responseObjects)
+		surrenderInputData : SurrenderInputData( paymentType == "D" , csrRole == "CSR" , transactionType in ( "F", "P" ) )
+	then
+		surrenderResp.setParagraph( "- I would like to confirm that you have requested a check in the amount of $________ and that you have/have not elected to have a portion withheld for taxes.  You have requested that this withdrawal be sent via check to your address of record.  All withdrawals requested by phone will be verified for eligibility.  If the request is Valid, the transaction will be processed within the next 3-5 business days and will be effective as of the close of business on _______. Please allow 7- 10 days for standard mail time." );
+		responseObjects.put( "paragraph", surrenderResp );
+end

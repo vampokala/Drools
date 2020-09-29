@@ -1,0 +1,3 @@
+'PermissionsData.callerRole' : ["owner","payor","insured","active agent","term. agent","agent","agent assistant","poa","joint-owner"]
+'PermissionsData.tenantName' : ["BHF","BHF-IUL-DEV","BHF-CONV-DEV","BHF-NB-DEV","BHF-IUL-SIT","BHF-CONV-SIT","BHF-NB-SIT","BHF-DAY2-DEV"]
+'PermissionsData.csrRole' : ["CSR","OLSCSR"]

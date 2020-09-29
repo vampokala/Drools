@@ -1,0 +1,4 @@
+'Step.name' : ["createAwdItem","ace","wma","attachedAwdSource","createSnowTicket","linkItemWithContactServicesTransaction"]
+'Step.preExecution' : ["awdRequestPreProcessor", "billingUpdateRequestMessageProcessor", "defaultRequestMessageProcessor", "wmaUpdateRequestPreProcessor","residentChangePreProcessor","attachedAwdSourceRequestPreProcessor","createSnowTicketRequestPreProcessor"]
+'Step.postExecution' : ["billingUpdateResponseMessageProcessor", "defaultResponseMessageProcessor", "contractResponseMessageProcessor",	"partyRolesResponseMessageProcessor","addressUpdateResponseMessageProcessor","residentChangePostProcessor","commNumberUpdateResponseMessageProcessor","attachedAwdSourceResponseMessageProcessor","createSnowTicketResponseMessageProcessor","postWmaResponseMessageProcessor"]
+'Step.execution' : ["async", "sync", "null"]

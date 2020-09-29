@@ -1,0 +1,17 @@
+package com.dxc.fs.oc.csrportal.withdrawals;
+
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.Surrender;
+import com.dxc.fs.oc.drools.model.SurrenderInputData;
+
+rule "Surrender Rule-3A"
+	dialect "mvel"
+	ruleflow-group "Surrender"
+	when
+		surrenderResp : Surrender( )
+		response : PortalRuleResponse( message : message, responseObjects : responseObjects)
+		surrenderInputData : SurrenderInputData( custodialOwned == "N" , withholdingIndicator == "N" , csrRole == "CSR" , transactionType in ( "F", "P", "S" ) )
+	then
+		surrenderResp.setParagraph( "-I understand you are providing me with a tax election of no withholding for this distribution.  -Even if you elect no withholding, you are liable for payment of federal income tax on the taxable portion of your withdrawal.  -You may also be subject to tax penalties under estimated tax rules if the withholding amount and estimated tax payments are not sufficient. Consult your tax advisor for details on estimated tax requirements and penalties.  " );
+		responseObjects.put( "paragraph", surrenderResp );
+end

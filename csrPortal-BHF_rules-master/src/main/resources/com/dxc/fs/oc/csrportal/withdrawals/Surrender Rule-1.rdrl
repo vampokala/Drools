@@ -1,0 +1,17 @@
+package com.dxc.fs.oc.csrportal.withdrawals;
+
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.Surrender;
+import com.dxc.fs.oc.drools.model.SurrenderInputData;
+
+rule "Surrender Rule-1"
+	dialect "mvel"
+	ruleflow-group "Surrender"
+	when
+		surrenderResp : Surrender( )
+		response : PortalRuleResponse( message : message, responseObjects : responseObjects)
+		surrenderInputData : SurrenderInputData( custodialOwned == "N" , callerRole in ( "Agent", "Advisor" ) , csrRole == "CSR" , transactionType in ( "F", "P", "S" ) )
+	then
+		surrenderResp.setParagraph( "Has the client authorized you to make a tax withholding election on the his/her behalf?" );
+		responseObjects.put( "paragraph", surrenderResp );
+end

@@ -1,0 +1,15 @@
+package com.dxc.fs.oc.csrportal.restrictcode;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.RestrictCodeResponse;
+
+rule "Check for RestrictCodeResponse"
+	dialect "mvel"
+	ruleflow-group "restrictCodeResponse"
+	when
+		PortalRuleResponse( responseObjects : responseObjects)
+		restrictCodeResponse : RestrictCodeResponse( )
+	then
+		responseObjects.put( "restrictCodes", restrictCodeResponse );
+end

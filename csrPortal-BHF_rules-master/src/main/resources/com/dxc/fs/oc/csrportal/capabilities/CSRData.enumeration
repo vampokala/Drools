@@ -1,0 +1,1 @@
+=((new com.dxc.fs.oc.drools.util.EnumLoader()).getFactFieldMap("CSRData"))

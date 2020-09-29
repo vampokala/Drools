@@ -1,0 +1,44 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.AuthField;
+import com.dxc.fs.oc.drools.model.CSRData;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Customer Auth - Assignee"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		ruleResponse : PortalRuleResponse( responseObjects : responseObjects)
+		customerAuth : CustomerAuth( authFields : authFields)
+		csrData : CSRData( callerRole == "Assignee" , csrRole == "CSR" , policyType == "1" )
+	then
+		AuthField role = new AuthField();
+		role.setName( "Role" );
+		insert( role );
+		AuthField polNumber = new AuthField();
+		polNumber.setName( "PolicyNumber" );
+		insert( polNumber );
+		AuthField name = new AuthField();
+		name.setName( "FullName" );
+		insert( name );
+		AuthField ownerDOB = new AuthField();
+		ownerDOB.setName( "OwnerDob" );
+		insert( ownerDOB );
+		AuthField insuredName = new AuthField();
+		insuredName.setName( "InsuredName" );
+		insert( insuredName );
+		AuthField insuredSSN = new AuthField();
+		insuredSSN.setName( "InsuredSsn" );
+		insert( insuredSSN );
+		AuthField insuredDOB = new AuthField();
+		insuredDOB.setName( "InsuredDob" );
+		insert( insuredDOB );
+		AuthField assigneeFullAddress = new AuthField();
+		assigneeFullAddress.setName( "AssigneeAddress" );
+		insert( assigneeFullAddress );
+		AuthField policyFaceAmt = new AuthField();
+		policyFaceAmt.setName( "PolicyFaceAmount" );
+		insert( policyFaceAmt );
+end

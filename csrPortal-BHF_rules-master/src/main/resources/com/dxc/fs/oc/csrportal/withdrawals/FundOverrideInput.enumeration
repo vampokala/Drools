@@ -1,0 +1,8 @@
+'FundOverrideInput.productCode' : ["A1","A2"]
+'FundOverrideInput.wmAErrorResp' : []
+'FundOverrideInput.callerRole' : ["Agent","Agent Assistant","Annuitant"]
+'FundOverrideInput.agentCode' : ["972478"]
+'FundOverrideInput.firmCode' : ["AXA","DWI","SBH","EDJ","CTI"]
+'FundOverrideInput.lob' : ["3","4","5"]
+'FundOverrideInput.transactionCode' : ["LE","RB","GC","LGCI","LRBI","LCI1"]
+'FundOverrideInput.csrRole' : ["OLSCSR","CSR"]

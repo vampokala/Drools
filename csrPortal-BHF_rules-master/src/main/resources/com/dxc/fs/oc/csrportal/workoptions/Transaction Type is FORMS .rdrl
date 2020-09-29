@@ -1,0 +1,11 @@
+package com.dxc.fs.oc.csrportal.workoptions;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkItemData;
+
+rule "Transaction Type is FORMS "
+	dialect "mvel"
+	when
+		WorkItemData( transactionType == "FORMS" )
+	then
+end

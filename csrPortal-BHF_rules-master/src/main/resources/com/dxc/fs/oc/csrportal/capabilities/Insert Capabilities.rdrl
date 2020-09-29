@@ -1,0 +1,13 @@
+package com.dxc.fs.oc.csrportal.capabilities;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.Capabilities;
+
+rule "Insert Capabilities"
+	dialect "mvel"
+	ruleflow-group "capabilities"
+	when
+		not (Capabilities( )) 
+	then
+		insert( new Capabilities() );
+end

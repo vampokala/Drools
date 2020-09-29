@@ -1,0 +1,1 @@
+'WorkItemList.listId' : (new com.dxc.fs.oc.drools.util.WorkItemsUtil()).fetchWorkItemsLists()

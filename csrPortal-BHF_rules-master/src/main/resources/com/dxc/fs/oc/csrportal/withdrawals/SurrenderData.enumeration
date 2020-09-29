@@ -1,0 +1,7 @@
+'SurrenderInputData.withholdingIndicator' : ["Y","N"]
+'SurrenderInputData.custodialOwned' : ["Y","N"]
+'SurrenderInputData.callerRole' : ["Agent","Advisor"]
+'SurrenderInputData.ageUnderFiftyNine' : ["Y","N"]
+'SurrenderInputData.paymentType' : ["E=EFT","D=check","Cash=Cash"]
+'SurrenderInputData.csrRole' : ["CSR","OLSCSR"]
+'SurrenderInputData.transactionType' : ["F=Full","P=Partial","S=SWP"]

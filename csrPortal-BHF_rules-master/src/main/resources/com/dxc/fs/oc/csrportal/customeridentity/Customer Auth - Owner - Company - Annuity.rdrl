@@ -1,0 +1,44 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.AuthField;
+import com.dxc.fs.oc.drools.model.CSRData;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Customer Auth - Owner - Company - Annuity"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		ruleResponse : PortalRuleResponse( responseObjects : responseObjects)
+		customerAuth : CustomerAuth( authFields : authFields)
+		csrData : CSRData( callerRole == "Owner" , csrRole == "CSR" , partyType in ( "Company/Trustee", "Organization" ) , policyType == "2" )
+	then
+		AuthField role = new AuthField();
+		role.setName( "Role" );
+		insert( role );
+		AuthField polNum = new AuthField();
+		polNum.setName( "PolicyNumber" );
+		insert( polNum );
+		AuthField ownerName = new AuthField();
+		ownerName.setName( "FullName" );
+		insert( ownerName );
+		AuthField ownerSSN = new AuthField();
+		ownerSSN.setName( "OwnerSsn" );
+		insert( ownerSSN );
+		AuthField participantName = new AuthField();
+		participantName.setName( "ParticipantName" );
+		insert( participantName );
+		AuthField participantSSN = new AuthField();
+		participantSSN.setName( "ParticipantSSN" );
+		insert( participantSSN );
+		AuthField ownerAddress = new AuthField();
+		ownerAddress.setName( "OwnerAddress" );
+		ownerAddress.setAlternate( true );
+		insert( ownerAddress );
+		AuthField participantDOB = new AuthField();
+		participantDOB.setName( "ParticipantDOB" );
+		participantDOB.setAlternate( true );
+		insert( participantDOB );
+		customerAuth.setMessage( "Caller must be asked if they are authorized to act on behalf of the company." );
+end

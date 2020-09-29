@@ -1,0 +1,24 @@
+package com.dxc.fs.oc.csrportal.workflow;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkflowInputData;
+import com.dxc.fs.oc.drools.model.Step;
+import com.dxc.fs.oc.drools.model.Workflow;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import java.lang.Integer;
+
+rule "Add Steps for Email Change"
+	dialect "mvel"
+	ruleflow-group "workflow"
+	when
+		workflow : Workflow( steps : steps)
+		input : WorkflowInputData( tenantName in ( "BHF", "BHF-IUL-DEV", "BHF-CONV-DEV", "BHF-NB-DEV", "BHF-IUL-SIT", "BHF-CONV-SIT", "BHF-NB-SIT", "BHF-CONV-PIT", "BHF-IUL-PIT", "GAFG-LT-POC", "BHF-DAY2-DEV" ) , transactionName in ( "Email" ) , method in ( "POST", "PATCH" ) , numberOfPolicies : numberOfPolicies > 0 )
+	then
+		Step newStep = new Step();
+		newStep.setName( "createAwdItem" );
+		newStep.setExecution( "async" );
+		insert( newStep );
+		modify( input ) {
+				setNumberOfPolicies( numberOfPolicies - 1 )
+		}
+end

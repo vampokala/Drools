@@ -1,0 +1,14 @@
+package com.dxc.fs.oc.csrportal.alertmessages;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.PortalMessage;
+import com.dxc.fs.oc.drools.model.PortalMessageResponse;
+
+rule "Insert PortalMessageResponse"
+	dialect "mvel"
+	ruleflow-group "PortalMessageResponse"
+	when
+		not (PortalMessageResponse( )) 
+	then
+		insert( new PortalMessageResponse() );
+end

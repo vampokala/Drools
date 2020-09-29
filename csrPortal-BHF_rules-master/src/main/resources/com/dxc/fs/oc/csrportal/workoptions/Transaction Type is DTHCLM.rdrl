@@ -1,0 +1,11 @@
+package com.dxc.fs.oc.csrportal.workoptions;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkItemData;
+
+rule "Transaction Type is DTHCLM"
+	dialect "mvel"
+	when
+		WorkItemData( transactionType == "DTHCLM" )
+	then
+end

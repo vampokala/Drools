@@ -1,0 +1,17 @@
+package com.dxc.fs.oc.csrportal.permissions;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.PermissionsResponse;
+import com.dxc.fs.oc.drools.model.PermissionsData;
+
+rule "Set joint-owner Permissions" extends "Set Default Permissions"
+	dialect "mvel"
+	ruleflow-group "permissions"
+	when
+		PermissionsResponse( perms : permissions)
+		PermissionsData( callerRole == "joint-owner" )
+	then
+		perms.add( "DataCollect:DELETE" );
+		perms.add( "surrender:POST" );
+		perms.add( "surrender:PATCH" );
+end

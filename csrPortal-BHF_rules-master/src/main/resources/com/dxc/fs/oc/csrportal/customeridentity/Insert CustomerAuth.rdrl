@@ -1,0 +1,13 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+
+rule "Insert CustomerAuth"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		not (CustomerAuth( )) 
+	then
+		insert( new CustomerAuth() );
+end

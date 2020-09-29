@@ -1,0 +1,43 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.AuthField;
+import com.dxc.fs.oc.drools.model.CSRData;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Customer Auth OLSCSR - Joint Owner"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		ruleResponse : PortalRuleResponse( responseObjects : responseObjects)
+		customerAuth : CustomerAuth( authFields : authFields)
+		csrData : CSRData( callerRole == "Joint-Owner" , csrRole == "OLSCSR" , partyType == "Person" , policyType in ( "1", "2" ) )
+	then
+		AuthField role = new AuthField();
+		role.setName( "Role" );
+		insert( role );
+		AuthField polNum = new AuthField();
+		polNum.setName( "PolicyNumber" );
+		insert( polNum );
+		AuthField name = new AuthField();
+		name.setName( "FullName" );
+		insert( name );
+		AuthField SSN = new AuthField();
+		SSN.setName( "JointOwnerSsn" );
+		insert( SSN );
+		AuthField DOB = new AuthField();
+		DOB.setName( "JointOwnerDob" );
+		DOB.setAlternate( true );
+		insert( DOB );
+		AuthField address = new AuthField();
+		address.setName( "JointOwnerAddress" );
+		address.setAlternate( true );
+		insert( address );
+		AuthField JointOwnerFirstName = new AuthField();
+		JointOwnerFirstName.setName( "JointOwnerFirstName" );
+		insert( JointOwnerFirstName );
+		AuthField JointOwnerLastName = new AuthField();
+		JointOwnerLastName.setName( "JointOwnerLastName" );
+		insert( JointOwnerLastName );
+end

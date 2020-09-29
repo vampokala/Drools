@@ -1,0 +1,29 @@
+package com.dxc.fs.oc.csrportal.customeridentity;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.AuthField;
+import com.dxc.fs.oc.drools.model.CSRData;
+import com.dxc.fs.oc.drools.model.CustomerAuth;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Customer Auth - All Others"
+	dialect "mvel"
+	ruleflow-group "customerAuth"
+	when
+		ruleResponse : PortalRuleResponse( responseObjects : responseObjects)
+		customerAuth : CustomerAuth( authFields : authFields)
+		csrData : CSRData( callerRole not in ( "Owner", "Agent", "Insured", "Payor", "Assignee", "Annuitant", "Active Agent", "Term. Agent", "Participant", "Joint-Owner", "Agent Assistant" ) , csrRole in ( "CSR", "OLSCSR" ) )
+	then
+		AuthField policyNumber = new AuthField();
+		policyNumber.setName( "PolicyNumber" );
+		insert( policyNumber );
+		AuthField role = new AuthField();
+		role.setName( "Role" );
+		insert( role );
+		AuthField name = new AuthField();
+		name.setName( "FullName" );
+		insert( name );
+		AuthField ownerDOB = new AuthField();
+		ownerDOB.setName( "OwnerDob" );
+		insert( ownerDOB );
+end

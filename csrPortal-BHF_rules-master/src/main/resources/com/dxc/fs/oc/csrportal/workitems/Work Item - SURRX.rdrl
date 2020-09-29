@@ -1,0 +1,37 @@
+package com.dxc.fs.oc.csrportal.workitems;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkItemResponse;
+import com.dxc.fs.oc.drools.model.WorkItemList;
+import com.dxc.fs.oc.drools.model.WorkItemField;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.WorkItemData;
+
+rule "Work Item - SURRX"
+	dialect "mvel"
+	ruleflow-group "workItemsInit"
+	no-loop false
+	when
+		PortalRuleResponse( responseObjects : responseObjects)
+		WorkItemData( businessArea == "BHF1" )
+		request : WorkItemResponse( workType == "SURRX" )
+		WorkItemList( requestList : workItemList)
+		response : WorkItemResponse( fields : fields, workType == "SURRX" ) from requestList
+	then
+		WorkItemField phoneNumber = new WorkItemField();
+		phoneNumber.setName( "phone" );
+		phoneNumber.setType( "number" );
+		insert( phoneNumber );
+		WorkItemField comments = new WorkItemField();
+		comments.setName( "comments" );
+		comments.setType( "string" );
+		insert( comments );
+		WorkItemField telephoneCall = new WorkItemField();
+		telephoneCall.setName( "telephone" );
+		telephoneCall.setType( "string" );
+		insert( telephoneCall );
+		fields.add( phoneNumber );
+		fields.add( comments );
+		fields.add( telephoneCall );
+		responseObjects.put( "workItemResponse", response );
+end

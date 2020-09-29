@@ -1,0 +1,76 @@
+package com.dxc.fs.oc.csrportal.workitems;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkItemResponse;
+import com.dxc.fs.oc.drools.model.WorkItemList;
+import com.dxc.fs.oc.drools.model.WorkItemField;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.WorkItemData;
+
+rule "Work item - VOIDSUSP"
+	dialect "mvel"
+	ruleflow-group "workItemsInit"
+	no-loop false
+	when
+		PortalRuleResponse( responseObjects : responseObjects)
+		WorkItemData( businessArea == "BHF1" )
+		request : WorkItemResponse( workType == "VOIDSUSP" )
+		WorkItemList( requestList : workItemList)
+		response : WorkItemResponse( fields : fields, workType == "VOIDSUSP" ) from requestList
+	then
+		WorkItemField areaOrig = new WorkItemField();
+		areaOrig.setName( "FNAR" );
+		areaOrig.setType( "string" );
+		areaOrig.setRequired( true );
+		areaOrig.setUseLOB( true );
+		insert( areaOrig );
+		WorkItemField cantLocate = new WorkItemField();
+		cantLocate.setName( "YN01" );
+		cantLocate.setType( "string" );
+		cantLocate.setUseLOB( true );
+		insert( cantLocate );
+		WorkItemField origCompCode = new WorkItemField();
+		origCompCode.setName( "OCMP" );
+		origCompCode.setType( "string" );
+		origCompCode.setUseLOB( true );
+		origCompCode.setMaxlength( "4" );
+		origCompCode.setRequired( true );
+		insert( origCompCode );
+		WorkItemField origCheckAmt = new WorkItemField();
+		origCheckAmt.setName( "OAMT" );
+		origCheckAmt.setType( "number" );
+		origCheckAmt.setUseLOB( true );
+		origCheckAmt.setMaxlength( "15" );
+		origCheckAmt.setRequired( true );
+		insert( origCheckAmt );
+		WorkItemField origCheckDate = new WorkItemField();
+		origCheckDate.setName( "OCDT" );
+		origCheckDate.setType( "object" );
+		origCheckDate.setUseLOB( true );
+		insert( origCheckDate );
+		WorkItemField origPayee = new WorkItemField();
+		origPayee.setName( "OPAY" );
+		origPayee.setType( "string" );
+		origPayee.setUseLOB( true );
+		origPayee.setMaxlength( "30" );
+		insert( origPayee );
+		WorkItemField checkNumber = new WorkItemField();
+		checkNumber.setName( "CHK1" );
+		checkNumber.setType( "number" );
+		checkNumber.setUseLOB( true );
+		checkNumber.setMaxlength( "11" );
+		checkNumber.setRequired( true );
+		insert( checkNumber );
+		WorkItemField comments = new WorkItemField();
+		comments.setName( "comments" );
+		comments.setType( "string" );
+		insert( comments );
+		fields.add( areaOrig );
+		fields.add( cantLocate );
+		fields.add( origCompCode );
+		fields.add( origCheckAmt );
+		fields.add( origCheckDate );
+		fields.add( checkNumber );
+		fields.add( comments );
+		responseObjects.put( "workItemResponse", response );
+end

@@ -1,0 +1,19 @@
+package com.dxc.fs.oc.csrportal.permissions;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.PermissionsResponse;
+import com.dxc.fs.oc.drools.model.PermissionsData;
+
+rule "Set Agent Assistant Permissions" extends "Set Default Permissions"
+	dialect "mvel"
+	ruleflow-group "permissions"
+	when
+		PermissionsResponse( perms : permissions)
+		PermissionsData( callerRole == "agent assistant" )
+	then
+		perms.add( "COMMUNICATIONNUMBER:PATCH" );
+		perms.add( "COMMUNICATIONNUMBER:POST" );
+		perms.add( "COMMUNICATIONNUMBER:DELETE" );
+		perms.add( "ADDRESS:PATCH" );
+		perms.add( "ADDRESS:POST" );
+end

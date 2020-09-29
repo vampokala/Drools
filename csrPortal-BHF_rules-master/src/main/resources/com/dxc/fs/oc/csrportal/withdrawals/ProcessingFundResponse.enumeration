@@ -1,0 +1,5 @@
+'ProcessingFundResponse.alertMessage' : ["Role does not support telephone request Form Required=1","Trust Owned Account Confirm Transaction Allowed by Phone=2","This firm does not allow agents or firm representatives to conduct this transac on behalf of client=3","Telephone Premium Allocation change Not Allowed Due to Product Rules=4","Contract has Suspense Code Confirm Reason in Notes and Submit Required Work Requests=5","Contract has Restrict Code Confirm Reason in Notes and Submit Required Work Requests=6","Invalid Transaction with Contract Status=7","Telephone Fund Transfer not allowed for contract with a non-natural owner. Requests must be in writing=8","Permission to trade not verified=9"]
+'ProcessingFundResponse.updateAllowed' : ["allowed=Y","not allowed=N","automatic=A"]
+'ProcessingFundResponse.isDisableTab' : ["Y","N"]
+'ProcessingFundResponse.alertType' : ["1","2"]
+'ProcessingFundResponse.readStatus' : ["Y","N"]

@@ -1,0 +1,16 @@
+package com.dxc.fs.oc.csrportal.permissions;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.PermissionsResponse;
+import com.dxc.fs.oc.drools.model.WorkflowInputData;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+
+rule "Add Permissions to Rule Response"
+	dialect "mvel"
+	ruleflow-group "permissions"
+	when
+		permissions : PermissionsResponse( )
+		PortalRuleResponse( responseObjects : responseObjects)
+	then
+		responseObjects.put( "permissions", permissions );
+end

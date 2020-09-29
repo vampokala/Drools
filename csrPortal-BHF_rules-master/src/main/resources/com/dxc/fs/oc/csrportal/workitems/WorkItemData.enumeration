@@ -1,0 +1,6 @@
+'WorkItemData.businessArea' : ["BHF1","WRC","WILTRE"]
+'WorkItemData.role' : ["agent","owner","payor","insured","active agent","term. agent"]
+'WorkItemData.productType' : ["A1=Fixed Annuity","A2=Fixed and Variable Annuity","A3=Employee Participating Fixed Asset Account","A4=Employee Participating Fixed and Variable Asset Account",		"NP=Non-Product, PDF Business Rules","T1=Traditional Life","U1=Universal Life I","U2=Universal Life II","U*=Both Universal I and Universal 2"]
+'WorkItemData.transactionType' : ["BILLCHG=Billing Change","ADDCHG=Address Change","FORMS=Forms Request","LOAN=Loan Request","CORRESP=Correspondence","DTHCLM=Initiate Death Claims"]
+'WorkItemData.manreview' : ["true","false"]
+'WorkItemData.csrRole' : ["CSR","OLSCSR"]

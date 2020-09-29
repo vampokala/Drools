@@ -1,0 +1,12 @@
+package com.dxc.fs.oc.csrportal.withdrawals;
+
+import java.lang.Number;
+
+rule "cerate_surrender-response_list"
+	dialect "mvel"
+	ruleflow-group "Surrender"
+	when
+		not (surrender_response_list( )) 
+	then
+		insert( new surrender_response_list() );
+end

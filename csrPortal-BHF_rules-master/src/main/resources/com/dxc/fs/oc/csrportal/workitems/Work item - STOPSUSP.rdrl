@@ -1,0 +1,70 @@
+package com.dxc.fs.oc.csrportal.workitems;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.WorkItemResponse;
+import com.dxc.fs.oc.drools.model.WorkItemList;
+import com.dxc.fs.oc.drools.model.WorkItemField;
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.WorkItemData;
+
+rule "Work item - STOPSUSP"
+	dialect "mvel"
+	ruleflow-group "workItemsInit"
+	no-loop false
+	when
+		PortalRuleResponse( responseObjects : responseObjects)
+		WorkItemData( businessArea == "BHF1" )
+		request : WorkItemResponse( workType == "STOPSUSP" )
+		WorkItemList( requestList : workItemList)
+		response : WorkItemResponse( fields : fields, workType == "STOPSUSP" ) from requestList
+	then
+		WorkItemField areaOrig = new WorkItemField();
+		areaOrig.setName( "FNAR" );
+		areaOrig.setType( "string" );
+		areaOrig.setRequired( true );
+		areaOrig.setUseLOB( true );
+		insert( areaOrig );
+		WorkItemField cantLocate = new WorkItemField();
+		cantLocate.setName( "YN01" );
+		cantLocate.setType( "string" );
+		cantLocate.setUseLOB( true );
+		insert( cantLocate );
+		WorkItemField origCoCode = new WorkItemField();
+		origCoCode.setName( "OCMP" );
+		origCoCode.setType( "string" );
+		origCoCode.setUseLOB( true );
+		origCoCode.setMaxlength( "4" );
+		origCoCode.setRequired( true );
+		insert( origCoCode );
+		WorkItemField origChkAmt = new WorkItemField();
+		origChkAmt.setName( "OAMT" );
+		origChkAmt.setType( "number" );
+		origChkAmt.setUseLOB( true );
+		origChkAmt.setMaxlength( "15" );
+		origChkAmt.setRequired( true );
+		insert( origChkAmt );
+		WorkItemField origChkDt = new WorkItemField();
+		origChkDt.setName( "OCDT" );
+		origChkDt.setType( "object" );
+		origChkDt.setUseLOB( true );
+		insert( origChkDt );
+		WorkItemField chkNum = new WorkItemField();
+		chkNum.setName( "CHK1" );
+		chkNum.setType( "number" );
+		chkNum.setUseLOB( true );
+		chkNum.setMaxlength( "11" );
+		chkNum.setRequired( true );
+		insert( chkNum );
+		WorkItemField comment = new WorkItemField();
+		comment.setName( "comments" );
+		comment.setType( "string" );
+		insert( comment );
+		fields.add( areaOrig );
+		fields.add( cantLocate );
+		fields.add( origCoCode );
+		fields.add( origChkAmt );
+		fields.add( origChkDt );
+		fields.add( chkNum );
+		fields.add( comment );
+		responseObjects.put( "workItemResponse", response );
+end

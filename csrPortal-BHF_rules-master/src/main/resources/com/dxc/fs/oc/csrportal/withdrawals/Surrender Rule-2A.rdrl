@@ -1,0 +1,17 @@
+package com.dxc.fs.oc.csrportal.withdrawals;
+
+import com.dxc.fs.oc.drools.model.PortalRuleResponse;
+import com.dxc.fs.oc.drools.model.Surrender;
+import com.dxc.fs.oc.drools.model.SurrenderInputData;
+
+rule "Surrender Rule-2A"
+	dialect "mvel"
+	ruleflow-group "Surrender"
+	when
+		surrenderResp : Surrender( )
+		response : PortalRuleResponse( message : message, responseObjects : responseObjects)
+		surrenderInputData : SurrenderInputData( custodialOwned == "N" , withholdingIndicator == "Y" , csrRole == "CSR" , transactionType in ( "F", "P", "S" ) )
+	then
+		surrenderResp.setParagraph( "-I understand you are providing me with a tax election of ___% for Federal and ____% for State for this distribution.  -You may also be subject to tax penalties under estimated tax rules if the withholding amounts or estimated tax payments are not sufficient. Consult your tax advisor for details on estimated tax requirements and penalties " );
+		responseObjects.put( "paragraph", surrenderResp );
+end

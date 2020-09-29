@@ -1,0 +1,14 @@
+package com.dxc.fs.oc.csrportal.permissions;
+
+import java.lang.Number;
+import com.dxc.fs.oc.drools.model.PermissionsResponse;
+import com.dxc.fs.oc.drools.model.PermissionsData;
+
+rule "Set Insured Permissions" extends "Set Default Permissions"
+	dialect "mvel"
+	ruleflow-group "permissions"
+	when
+		PermissionsResponse( perms : permissions)
+		PermissionsData( callerRole == "insured" )
+	then
+end
